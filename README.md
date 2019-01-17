@@ -1,7 +1,7 @@
 # kenpom_loss
 Scrapes Kenpom via BeautifulSoup and finds the best and worst team for each number of losses. writes to csv.
 
-I believe this would only work on Windows. Must have Excel.
+I believe this should work on any OS, but have only tested on Windows. Must have Excel.
 
 You must install the following packages:
 Beautiful Soup 4: https://www.crummy.com/software/BeautifulSoup/bs4/doc/
