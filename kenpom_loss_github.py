@@ -8,8 +8,8 @@ r = requests.get(url).text
 soup = BeautifulSoup(r, 'lxml')
 
 #set file name and write headers
-path = 'C:\\Users\\user_name\\Desktop'
-filename = 'kp_scrape_losses.csv'
+path = 'C:\\Users\\username\\Desktop'
+filename = 'kp_scrape_wl.csv'
 complete_name = os.path.join(path, filename)
 f = open(complete_name,'w')
 headers = 'AdjEM, Best, # of losses, Worst, AdjEM \n'
@@ -30,8 +30,12 @@ for team in teams:
     l_list.append(l)
 count = max(l_list)
 min_losses = min(l_list)
+
 #write out data
 for x in range(min_losses,count+1):
+    max_check = False
+    min_check = False
+    
     #find max_AdjEM
     max_AdjEM = -100
     min_AdjEM = 100
@@ -47,6 +51,8 @@ for x in range(min_losses,count+1):
             if AdjEM > max_AdjEM:
                 max_AdjEM = AdjEM
                 max_name = name
+                max_check = True
+                
     #find min_AdjEM
     for team in teams:
         name = team.find('td',{'class':'next_left'}).a.text
@@ -60,6 +66,17 @@ for x in range(min_losses,count+1):
             if AdjEM < min_AdjEM:
                 min_AdjEM = AdjEM
                 min_name = name
+                min_check = True
+                
+    #check to find mising loss numbers
+    if not max_check:
+        max_AdjEM = ' '
+        max_name = ' '
+    if not min_check:
+        min_AdjEM = ' '
+        max_name = ' '
+      
+    #write values to csv
     f.write(str(max_AdjEM) + "," + max_name + "," + 
             str(x) + "," + min_name + "," + str(min_AdjEM) + '\n')
           
