@@ -29,9 +29,9 @@ for team in teams:
     l = int(l)
     l_list.append(l)
 count = max(l_list)
-
+min_losses = min(l_list)
 #write out data
-for x in range(0,count+1):
+for x in range(min_losses,count+1):
     #find max_AdjEM
     max_AdjEM = -100
     min_AdjEM = 100
