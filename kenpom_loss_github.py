@@ -8,11 +8,11 @@ r = requests.get(url).text
 soup = BeautifulSoup(r, 'lxml')
 
 #set file name and write headers
-path = 'C:\\Users\\usernamehere\\Desktop'
+path = 'C:\\Users\\username\\Desktop'
 filename = 'kp_scrape_wl.csv'
 complete_name = os.path.join(path, filename)
 f = open(complete_name,'w')
-headers = 'Rank, AdjEM, Best, # of losses, Worst, Rank, AdjEM \n'
+headers = 'Rank, AdjEM, Best, # of losses, Worst, Rank, AdjEM, , Diff \n'
 f.write(headers)
 
 #get all team data rows
@@ -71,7 +71,9 @@ for x in range(min_losses,count+1):
                 min_name = name
                 min_rank = rank
                 min_check = True
-                           
+     
+    diff = abs(max_AdjEM - min_AdjEM)
+                      
     #check to find mising loss numbers
     if not max_check:
         max_AdjEM = ' '
@@ -79,10 +81,10 @@ for x in range(min_losses,count+1):
     if not min_check:
         min_AdjEM = ' '
         max_name = ' '
-      
+     
     #write values to csv
     f.write(str(max_rank) + "," + str(max_AdjEM) + "," + max_name + "," + 
             str(x) + "," + min_name + "," + str(min_rank) + "," + 
-            str(min_AdjEM) + '\n')
+            str(min_AdjEM) + "," + " " + "," + str(diff) + '\n')
           
 f.close()
