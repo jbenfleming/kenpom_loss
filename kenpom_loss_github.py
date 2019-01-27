@@ -12,7 +12,7 @@ path = 'C:\\Users\\username\\Desktop'
 filename = 'kp_scrape_wl.csv'
 complete_name = os.path.join(path, filename)
 f = open(complete_name,'w')
-headers = 'Rank, AdjEM, Best, # of losses, Worst, Rank, AdjEM, , Diff \n'
+headers = 'Rank, AdjEM, Best, # of losses, Worst, Rank, AdjEM, , RankDiff, EMDiff \n'
 f.write(headers)
 
 #get all team data rows
@@ -72,8 +72,9 @@ for x in range(min_losses,count+1):
                 min_rank = rank
                 min_check = True
      
-    diff = abs(max_AdjEM - min_AdjEM)
-                      
+    em_diff = abs(max_AdjEM - min_AdjEM)
+    rank_diff = abs(int(max_rank) - int(min_rank) )  
+    
     #check to find mising loss numbers
     if not max_check:
         max_AdjEM = ' '
@@ -85,6 +86,7 @@ for x in range(min_losses,count+1):
     #write values to csv
     f.write(str(max_rank) + "," + str(max_AdjEM) + "," + max_name + "," + 
             str(x) + "," + min_name + "," + str(min_rank) + "," + 
-            str(min_AdjEM) + "," + " " + "," + str(diff) + '\n')
+            str(min_AdjEM) + "," + " " + "," + str(rank_diff) +
+            "," + str(em_diff) + '\n')
           
 f.close()
